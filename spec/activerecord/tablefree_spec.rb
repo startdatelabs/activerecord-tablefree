@@ -7,6 +7,7 @@ def make_tablefree_model(database = nil, nested = nil)
     #{database ? "has_no_table :database => :#{database}" : 'has_no_table'}
     column :id, :integer
     column :name, :string
+    column :not_nullable, :integer, 1, false
     #{if nested
         '
         has_many :arm_rests
@@ -162,6 +163,12 @@ describe 'Tablefree model with fail_fast' do
   before(:context) { make_tablefree_model(nil, nil) }
   after(:context) { remove_models }
   subject { Chair }
+  it 'has the expected null value for columns' do
+    name = subject.columns.detect { |column| column.name == 'name' }.null
+    not_nullable = subject.columns.detect { |column| column.name == 'not_nullable' }.null
+    expect(name).to be_truthy
+    expect(not_nullable).to be_falsy
+  end
   it_behaves_like 'a tablefree model with fail_fast'
   describe 'instance' do
     subject { Chair.new(name: 'Jarl') }

@@ -22,7 +22,7 @@ Rails project or other Ruby project that uses ActiveRecord.
 Why, why, why
 -------------
 
-Why would you ever consider this gem as opposed to ActiveModel.
+Why would you ever consider this gem as opposed to ActiveModel?
 
 ActiveModel::Model does not support relations and nested attributes.
 
